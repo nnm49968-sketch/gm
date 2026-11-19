@@ -1,0 +1,15 @@
+services:
+  orbit:
+    build: .
+    restart: unless-stopped
+    environment:
+      ORBIT_ADMIN_PASSWORD: ${ORBIT_ADMIN_PASSWORD:?Set admin password in .env}
+      ORBIT_SECRET: ${ORBIT_SECRET:?Set persistent signing key in .env}
+      ORBIT_DB: /srv/orbit/data/orbit.sqlite3
+      ORBIT_COOKIE_SECURE: "1"
+    volumes:
+      - game:/srv/orbit/data
+    ports:
+      - "127.0.0.1:8081:8080"
+volumes:
+  game:
